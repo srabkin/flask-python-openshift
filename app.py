@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask import render_template
 from flask import redirect
 from flask_sqlalchemy import SQLAlchemy
+from flaskrun import flaskrun
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -69,4 +70,4 @@ def resolve_task(task_id):
 
 
 if __name__ == '__main__':
-    app.run()
+    flaskrun(app)
