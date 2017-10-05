@@ -3,6 +3,7 @@ from flask import render_template
 from flask import redirect
 from flask_sqlalchemy import SQLAlchemy
 from flaskrun import flaskrun
+import userlogin
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -27,8 +28,11 @@ db.create_all()
 
 @app.route('/')
 def tasks_list():
-    tasks = Task.query.all()
-    return render_template('list.html', tasks=tasks)
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        tasks = Task.query.all()
+        return render_template('list.html', tasks=tasks)
 
 
 @app.route('/task', methods=['POST'])
