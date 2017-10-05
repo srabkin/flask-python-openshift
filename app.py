@@ -1,6 +1,8 @@
+import os
+
 from flask import Flask, request
 from flask import render_template
-from flask import redirect
+from flask import redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flaskrun import flaskrun
 import userlogin
@@ -72,6 +74,16 @@ def resolve_task(task_id):
     db.session.commit()
     return redirect('/')
 
+@app.route('/login', methods=['POST'])
+def do_login():
+    userlogin.do_admin_login()
+    return redirect('/')
+
+@app.route('/logout')
+def do_logout():
+    session['logged_in'] = False
+    return redirect('/')
 
 if __name__ == '__main__':
+    app.secret_key = os.urandom(12)
     flaskrun(app)
