@@ -39,6 +39,7 @@ def add_user():
     user = User(request.form["username"],request.form["password"])
     db.session.add(user)
     db.session.commit()
+    session['logged_in'] = True
 
 user = User("admin" , "password")
 db.session.add(user)

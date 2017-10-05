@@ -84,6 +84,16 @@ def do_logout():
     session['logged_in'] = False
     return redirect('/')
 
+@app.route('/adduser')
+def add_user():
+    return render_template('adduser.html')
+
+
+@app.route('/submituser', methods=['POST'])
+def submit_user():
+    userlogin.add_user()
+    return redirect('/')
+
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
     flaskrun(app)
